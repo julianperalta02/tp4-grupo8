@@ -42,4 +42,27 @@ export class PersonaModel {
       email: this.email
     }
   }
+
+// validaciones
+  public static validate(data: any): string[] {
+
+    const errors: string[] = []
+
+    if (!data.nombre || data.nombre.trim() === "") {
+      errors.push("El nombre es obligatorio")
+    }
+
+    if (!data.apellido || data.apellido.trim() === "") {
+      errors.push("El apellido es obligatorio")
+    }
+
+    if (!data.email || !data.email.includes("@")) {
+      errors.push("Email inválido")
+    }
+
+    return errors
+  }
+
 }
+
+
