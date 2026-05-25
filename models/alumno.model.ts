@@ -1,20 +1,19 @@
-import { PersonaModel } from "./persona.model"
+import { PersonaModel } from './persona.model.ts'
 
 export class AlumnoModel extends PersonaModel {
 
-
-    constructor(
-        nombre: string,
-        apellido: string,
-        email: string,
-        private legajo: number,
-        private fechaAlta: string = new Date().toISOString().split("T")[0],
-        private modificacion: string = new Date().toISOString().split("T")[0],
-        private isActive: boolean = true
-    ) {
-
+    //no modificable
+    private legajo: number
+    //no modificable
+    private fechaAlta: string = new Date().toISOString().split('T')[0]
+    private modificacion: string = new Date().toISOString().split('T')[0]
+    private activo: boolean = true
+    constructor(nombre: string, apellido: string, email: string, legajo: number, fechaAlta: string, modificacion: string, activo: boolean) {
         super(nombre, apellido, email)
-
+        this.legajo = legajo
+        this.fechaAlta = fechaAlta
+        this.modificacion = modificacion
+        this.activo = activo
     }
 
     // legajo
@@ -39,35 +38,22 @@ export class AlumnoModel extends PersonaModel {
 
     // isActive
     public getIsActive(): boolean {
-        return this.isActive
+        return this.activo
     }
 
-    public setIsActive(isActive: boolean): void {
-        this.isActive = isActive
+    public setActivo(activo: boolean): void {
+        this.activo = activo;
     }
 
     // todos los atributos
-    public override getAllAttributes(): {
-
-        legajo: number,
-        nombre: string,
-        apellido: string,
-        email: string,
-        fechaAlta: string,
-        modificacion: string,
-        isActive: boolean
-    } {
-
+    public override getAllAttributes(): Object {
         return {
+            ...super.getAllAttributes(),
             legajo: this.legajo,
-            nombre: this.nombre,
-            apellido: this.apellido,
-            email: this.email,
             fechaAlta: this.fechaAlta,
             modificacion: this.modificacion,
-            isActive: this.isActive
+            activo: this.activo
         }
-
     }
 
     // validaciones
@@ -109,11 +95,11 @@ export class AlumnoModel extends PersonaModel {
         }
 
         if (
-            typeof data.isActive !== "boolean"
+            typeof data.activo !== "boolean"
         ) {
 
             errors.push(
-                "isActive debe ser boolean"
+                "activo debe ser boolean"
             )
 
         }
