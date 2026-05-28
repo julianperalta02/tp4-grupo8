@@ -1,0 +1,28 @@
+[
+  {
+    "idMateria": "MAT101",
+    "nombre": "Matemática I",
+    "cuatrimestre": 1
+  },
+
+  {
+    "idMateria": "PROG1",
+    "nombre": "Programación I",
+    "cuatrimestre": 1
+  },
+  {
+    "idMateria": "SIST1",
+    "nombre": "Sistemas de Procesamiento de Datos",
+    "cuatrimestre": 1
+  },
+  {
+    "idMateria": "LABO1",
+    "nombre": "Laboratorio de Computación I",
+    "cuatrimestre": 1
+  },
+  {
+    "idMateria": "ING1",
+    "nombre": "Inglés Técnico I",
+    "cuatrimestre": 1
+  }
+]

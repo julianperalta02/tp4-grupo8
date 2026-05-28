@@ -11,7 +11,7 @@ const alumnoValidator = async (req, res, next) => {
     if (typeof email !== 'string' || email.trim() === '') {
         errors.push('No se ingresó un email válido')
     }
-    if (typeof activo !== 'boolean' && activo !== undefined) {
+    if (typeof isActive !== 'boolean' && isActive !== undefined) {
         errors.push('No se ingresó un estado de actividad válido')
     }
 
