@@ -13,7 +13,7 @@ const rutas = Router()
 rutas.get('/', getAlumnoAll)
 rutas.get('/:legajo', getAlumnoById)
 rutas.post('/', alumnoValidator, postNewAlumno)
-rutas.put('/:legajo', alumnoValidator, putAlumnoByLegajo)
+rutas.put('/:legajo', putAlumnoByLegajo)
 rutas.delete('/:legajo', deleteAlumnoByLegajo)
 
 module.exports = rutas
