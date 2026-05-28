@@ -1,5 +1,5 @@
 const { NotaModel } = require('../models/extras/nota.model.ts')
-const { readNotas, writeNotas } = require('../persistence/materia.persistence.js')
+const { readNotas, writeNotas } = require('../persistence/nota.persistance')
 
 
 const getNotaAll = async (req, res) => {
