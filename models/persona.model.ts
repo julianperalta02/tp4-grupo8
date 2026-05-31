@@ -1,9 +1,12 @@
 export class PersonaModel {
-  constructor(
-    protected nombre: string,
-    protected apellido: string,
-    protected email: string
-  ) {}
+  protected nombre: string
+  protected apellido: string
+  protected email: string
+  constructor(nombre: string, apellido: string, email: string) {
+    this.nombre = nombre
+    this.apellido = apellido
+    this.email = email
+  }
 
   // nombre
   public getNombre(): string {
@@ -42,4 +45,27 @@ export class PersonaModel {
       email: this.email
     }
   }
+
+// validaciones
+  public static validate(data: any): string[] {
+
+    const errors: string[] = []
+
+    if (!data.nombre || data.nombre.trim() === "") {
+      errors.push("El nombre es obligatorio")
+    }
+
+    if (!data.apellido || data.apellido.trim() === "") {
+      errors.push("El apellido es obligatorio")
+    }
+
+    if (!data.email || !data.email.includes("@")) {
+      errors.push("Email inválido")
+    }
+
+    return errors
+  }
+
 }
+
+
