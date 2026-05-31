@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "legajoProfesor": 20001,
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "email": "j.perez@facultad.edu.ar",
+    "especialidad": "Matemática"
+  },
+  {
+    "legajoProfesor": 20002,
+    "nombre": "María",
+    "apellido": "González",
+    "email": "m.gonzalez@facultad.edu.ar",
+    "especialidad": "Programación"
+  },
+  {
+    "legajoProfesor": 20003,
+    "nombre": "Carlos",
+    "apellido": "Rodríguez",
+    "email": "c.rodriguez@facultad.edu.ar",
+    "especialidad": "Sistemas"
+  },
+  {
+    "legajoProfesor": 20004,
+    "nombre": "Laura",
+    "apellido": "Martínez",
+    "email": "l.martinez@facultad.edu.ar",
+    "especialidad": "Redes"
+  },
+  {
+    "legajoProfesor": 20005,
+    "nombre": "Diego",
+    "apellido": "López",
+    "email": "d.lopez@facultad.edu.ar",
+    "especialidad": "Base de Datos"
+  }
+]
