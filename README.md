@@ -32,15 +32,19 @@ El proyecto se dockeriza y despliega en Render, y sus endpoints están documenta
 
 ## Metodología de trabajo con Git y GitHub
 
-Se trabajó con **una rama por integrante**. El flujo fue secuencial: cada integrante tomó el `main` actualizado, creó su propia rama, desarrolló su parte, hizo `push` y abrió un **Pull Request** hacia `main`. Una vez aprobado y mergeado, el siguiente tomó la base actualizada y continuó.
+Se trabajó con una rama por integrante. El flujo fue secuencial: cada integrante tomó la rama dev actualizada, creó su propia rama, desarrolló su parte, hizo push y abrió un Pull Request hacia dev. Una vez aprobado y mergeado, el siguiente tomó la base actualizada y continuó. Al finalizar el desarrollo completo, se realizó un último Pull Request de dev hacia main como entrega definitiva.
 
 ```
-main → rama-alejo   → PR → merge a main
-main → rama-nico    → PR → merge a main
-main → rama-julian  → PR → merge a main
-main → rama-roman   → PR → merge a main
-main → rama-naza    → PR → merge a main
-main → rama-gian    → PR → merge a main
+main → dev
+
+dev → rama-alejo   → PR → merge a dev
+dev → rama-nico    → PR → merge a dev
+dev → rama-julian  → PR → merge a dev
+dev → rama-roman   → PR → merge a dev
+dev → rama-naza    → PR → merge a dev
+dev → rama-gian    → PR → merge a dev
+
+dev → PR → merge a main (entrega final)
 ```
 
 Cada integrante tiene al menos un commit en su propia rama y su correspondiente Pull Request aprobado.
