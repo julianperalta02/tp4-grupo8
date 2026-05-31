@@ -300,131 +300,11 @@ Extiende `PersonaModel`. Agrega `legajoProfesor` y `especialidad`. Incluye `getA
 
 ---
 
-## Endpoints documentados con Postman
-
-> Las capturas de pantalla se encuentran en la carpeta `/postman` del repositorio.
-
-### Base URL
-```
-https://tp4-grupo8-backend.onrender.com
-```
-
----
-
-### ALUMNOS
-
-#### GET /alumnos
-Retorna todos los alumnos. Acepta filtros opcionales por query params.
-
-```
-GET /alumnos
-GET /alumnos?isActive=true
-GET /alumnos?apellido=garcia
-```
-Respuestas: `200 OK`, `500`
-
-#### GET /alumnos/:legajo
-```
-GET /alumnos/10001
-```
-Respuestas: `200 OK`, `404 Not Found`, `500`
-
-#### POST /alumnos
-```
-POST /alumnos
-Content-Type: application/json
-
-{
-  "nombre": "Juan",
-  "apellido": "López",
-  "email": "j.lopez@facultad.edu.ar"
-}
-```
-El legajo se genera automáticamente. Respuestas: `201 Created`, `400 Bad Request`, `409 Conflict`, `500`
-
-#### PUT /alumnos/:legajo
-Solo se actualizan los campos enviados. El legajo no puede modificarse.
-```
-PUT /alumnos/10001
-Content-Type: application/json
-
-{
-  "nombre": "Juan Pablo",
-  "isActive": false
-}
-```
-Respuestas: `200 OK`, `404 Not Found`, `500`
-
-#### DELETE /alumnos/:legajo
-```
-DELETE /alumnos/10001
-```
-Respuestas: `200 OK`, `404 Not Found`, `500`
-
----
-
-### MATERIAS
-
-#### GET /materias
-```
-GET /materias
-GET /materias?cuatrimestre=1
-```
-#### GET /materias/:idMateria — `GET /materias/MAT101`
-#### POST /materias
-```json
-{ "idMateria": "PROG3", "nombre": "Programación III", "cuatrimestre": 2 }
-```
-#### PUT /materias/:idMateria — modifica `nombre` y/o `cuatrimestre`
-#### DELETE /materias/:idMateria
-
-Respuestas en todos: `200/201`, `400`, `404`, `409`, `500` según corresponda.
-
----
-
-### NOTAS
-
-#### GET /notas
-```
-GET /notas
-GET /notas?legajo=10001
-GET /notas?idMateria=MAT101
-```
-#### GET /notas/:id — `GET /notas/1`
-#### POST /notas
-```json
-{ "legajo": 10001, "idMateria": "MAT101", "nota": 9, "fecha": "01-06-26" }
-```
-El id se genera automáticamente.
-#### PUT /notas/:id — modifica `nota` y/o `fecha`
-#### DELETE /notas/:id
-
----
-
-### PROFESORES
-
-#### GET /profesores
-```
-GET /profesores
-GET /profesores?especialidad=programacion
-```
-#### GET /profesores/:legajoProfesor
-#### POST /profesores
-```json
-{ "nombre": "Ana", "apellido": "Gómez", "email": "a.gomez@facultad.edu.ar", "especialidad": "Redes" }
-```
-El legajoProfesor se genera automáticamente.
-#### PUT /profesores/:legajoProfesor — modifica nombre, apellido, email y/o especialidad
-#### DELETE /profesores/:legajoProfesor
-
----
-
 ## Deploy
 
 - **URL de la API (Render):** https://tp4-grupo8-backend.onrender.com
 - **Repositorio backend:** https://github.com/julianperalta02/tp4_grupo8_backend
 - **Repositorio front-end:** https://github.com/NCastellini/tp4-front-grupo8
-
 ---
 
 ## Tecnologías utilizadas
@@ -435,3 +315,393 @@ El legajoProfesor se genera automáticamente.
 - Render
 - Postman
 - Git / GitHub
+
+---
+
+## Documentación de Postman
+
+Base URL: `https://tp4-grupo8-backend.onrender.com`
+
+---
+
+### ALUMNOS
+
+#### GET /alumnos
+Retorna la lista completa de alumnos. Acepta filtros opcionales por query params.
+
+| Query param | Ejemplo | Descripción |
+|---|---|---|
+| `isActive` | `?isActive=true` | Filtra por estado activo |
+| `apellido` | `?apellido=garcia` | Filtra por apellido (parcial, sin distinción de mayúsculas) |
+
+**Respuesta exitosa — 200 OK:**
+```json
+[
+  {
+    "legajo": 10001,
+    "nombre": "Mora",
+    "apellido": "García",
+    "email": "m.garcia@facultad.edu.ar",
+    "fechaAlta": "2026-03-02",
+    "modificacion": "2026-03-02",
+    "isActive": true
+  }
+]
+```
+
+---
+
+#### GET /alumnos/:legajo
+Busca un alumno por su número de legajo.
+
+**URL de ejemplo:** `GET /alumnos/10001`
+
+**Respuesta exitosa — 200 OK:**
+```json
+{
+  "legajo": 10001,
+  "nombre": "Mora",
+  "apellido": "García",
+  "email": "m.garcia@facultad.edu.ar",
+  "fechaAlta": "2026-03-02",
+  "modificacion": "2026-03-02",
+  "isActive": true
+}
+```
+
+**Respuesta fallida — 404 Not Found:**
+```json
+{ "msg": "No existe el alumno con el legajo 99999" }
+```
+
+---
+
+#### POST /alumnos
+Crea un nuevo alumno. El legajo, fechaAlta, modificacion e isActive los genera el servidor automáticamente.
+
+**Body:**
+```json
+{
+  "nombre": "Gianfranco",
+  "apellido": "Tarulli",
+  "email": "giafrancotarullifacultad.edu.ar"
+}
+```
+
+**Respuesta exitosa — 201 Created:**
+```json
+{
+  "msg": "Se agregó el nuevo alumno con legajo n° 10026",
+  "alumnoNuevo": {
+    "legajo": 10026,
+    "nombre": "Gianfranco",
+    "apellido": "Tarulli",
+    "email": "giafrancotarullifacultad.edu.ar",
+    "fechaAlta": "2026-05-31",
+    "modificacion": "2026-05-31",
+    "isActive": true
+  }
+}
+```
+
+**Respuesta fallida — 409 Conflict:**
+```json
+{ "error": "Ya existe un alumno registrado con el email giafrancotarullifacultad.edu.ar" }
+```
+
+---
+
+#### PUT /alumnos/:legajo
+Modifica los datos de un alumno. Solo se actualizan los campos que se envían en el body. El legajo no puede modificarse.
+
+**URL de ejemplo:** `PUT /alumnos/10026`
+
+**Body:**
+```json
+{
+  "nombre": "Gian",
+  "isActive": false
+}
+```
+
+**Respuesta exitosa — 200 OK:**
+```json
+{
+  "msg": "Se actualizó el alumno con legajo n° 10026",
+  "alumnoModificado": {
+    "legajo": 10026,
+    "nombre": "Gian",
+    "apellido": "Tarulli",
+    "email": "giafrancotarullifacultad.edu.ar",
+    "fechaAlta": "2026-05-31",
+    "modificacion": "2026-05-31",
+    "isActive": false
+  }
+}
+```
+
+---
+
+#### DELETE /alumnos/:legajo
+Elimina un alumno por su legajo.
+
+**URL de ejemplo:** `DELETE /alumnos/10026`
+
+**Respuesta exitosa — 200 OK:**
+```json
+{ "msg": "Se eliminó el alumno con legajo n° 10026" }
+```
+
+**Respuesta fallida — 404 Not Found:**
+```json
+{ "msg": "No existe el alumno con el legajo 10026" }
+```
+
+---
+
+### MATERIAS
+
+#### GET /materias
+Retorna todas las materias. Acepta filtro opcional `?cuatrimestre=1`.
+
+**Respuesta exitosa — 200 OK:**
+```json
+[
+  { "idMateria": "MAT101", "nombre": "Matemática I", "cuatrimestre": 1 }
+]
+```
+
+---
+
+#### GET /materias/:idMateria
+**URL de ejemplo:** `GET /materias/MAT101`
+
+**Respuesta exitosa — 200 OK:**
+```json
+{ "idMateria": "MAT101", "nombre": "Matemática I", "cuatrimestre": 1 }
+```
+
+**Respuesta fallida — 404 Not Found:**
+```json
+{ "msg": "No existe la materia con id MAT999" }
+```
+
+---
+
+#### POST /materias
+**Body:**
+```json
+{ "idMateria": "PROG3", "nombre": "Programación III", "cuatrimestre": 2 }
+```
+
+**Respuesta exitosa — 201 Created:**
+```json
+{
+  "msg": "Se agregó la nueva materia con id PROG3",
+  "materiaNueva": { "idMateria": "PROG3", "nombre": "Programación III", "cuatrimestre": 2 }
+}
+```
+
+---
+
+#### PUT /materias/:idMateria
+**URL de ejemplo:** `PUT /materias/PROG3`
+
+**Body:**
+```json
+{ "nombre": "Programación III actualizada" }
+```
+
+**Respuesta exitosa — 200 OK:**
+```json
+{
+  "msg": "Se actualizó la materia con id PROG3",
+  "materiaModificada": { "idMateria": "PROG3", "nombre": "Programación III actualizada", "cuatrimestre": 2 }
+}
+```
+
+---
+
+#### DELETE /materias/:idMateria
+**URL de ejemplo:** `DELETE /materias/PROG3`
+
+**Respuesta exitosa — 200 OK:**
+```json
+{ "msg": "Se eliminó la materia con id PROG3" }
+```
+
+---
+
+### NOTAS
+
+#### GET /notas
+Retorna todas las notas. Acepta filtros opcionales `?legajo=10001` y `?idMateria=MAT101`.
+
+**Respuesta exitosa — 200 OK:**
+```json
+[
+  { "id": 1, "legajo": 10001, "idMateria": "MAT101", "nota": 9, "fecha": "03-04-24" }
+]
+```
+
+---
+
+#### GET /notas/:id
+**URL de ejemplo:** `GET /notas/1`
+
+**Respuesta exitosa — 200 OK:**
+```json
+{ "id": 1, "legajo": 10001, "idMateria": "MAT101", "nota": 9, "fecha": "03-04-24" }
+```
+
+---
+
+#### POST /notas
+El id se genera automáticamente.
+
+**Body:**
+```json
+{ "legajo": 10001, "idMateria": "MAT101", "nota": 8, "fecha": "01-06-26" }
+```
+
+**Respuesta exitosa — 201 Created:**
+```json
+{
+  "msg": "Se agregó la nueva nota con id 26",
+  "notaNueva": { "id": 26, "legajo": 10001, "idMateria": "MAT101", "nota": 8, "fecha": "01-06-26" }
+}
+```
+
+---
+
+#### PUT /notas/:id
+Solo se pueden modificar `nota` y `fecha`.
+
+**URL de ejemplo:** `PUT /notas/26`
+
+**Body:**
+```json
+{ "nota": 10 }
+```
+
+**Respuesta exitosa — 200 OK:**
+```json
+{
+  "msg": "Se actualizó la nota con id 26",
+  "notaModificada": { "id": 26, "legajo": 10001, "idMateria": "MAT101", "nota": 10, "fecha": "01-06-26" }
+}
+```
+
+---
+
+#### DELETE /notas/:id
+**URL de ejemplo:** `DELETE /notas/26`
+
+**Respuesta exitosa — 200 OK:**
+```json
+{ "msg": "Se eliminó la nota con id 26" }
+```
+
+---
+
+### PROFESORES
+
+#### GET /profesores
+Retorna todos los profesores. Acepta filtro opcional `?especialidad=programacion`.
+
+**Respuesta exitosa — 200 OK:**
+```json
+[
+  {
+    "legajoProfesor": 20006,
+    "nombre": "Emilia",
+    "apellido": "Castillo",
+    "email": "emiliacastillo@facultad.edu.ar",
+    "especialidad": "Programación"
+  }
+]
+```
+
+---
+
+#### GET /profesores/:legajoProfesor
+**URL de ejemplo:** `GET /profesores/20006`
+
+**Respuesta exitosa — 200 OK:**
+```json
+{
+  "legajoProfesor": 20006,
+  "nombre": "Emilia",
+  "apellido": "Castillo",
+  "email": "emiliacastillo@facultad.edu.ar",
+  "especialidad": "Programación"
+}
+```
+
+---
+
+#### POST /profesores
+El legajoProfesor se genera automáticamente.
+
+**Body:**
+```json
+{
+  "nombre": "María",
+  "apellido": "González",
+  "email": "m.gonzalez2@facultad.edu.ar",
+  "especialidad": "Programación"
+}
+```
+
+**Respuesta exitosa — 201 Created:**
+```json
+{
+  "msg": "Se agregó el nuevo profesor con legajo n° 20006",
+  "profesorNuevo": {
+    "legajoProfesor": 20006,
+    "nombre": "María",
+    "apellido": "González",
+    "email": "m.gonzalez2@facultad.edu.ar",
+    "especialidad": "Programación"
+  }
+}
+```
+
+**Respuesta fallida — 409 Conflict:**
+```json
+{ "error": "Ya existe un profesor registrado con el email m.gonzalez@facultad.edu.ar" }
+```
+
+---
+
+#### PUT /profesores/:legajoProfesor
+**URL de ejemplo:** `PUT /profesores/20006`
+
+**Body:**
+```json
+{ "especialidad": "Redes y Sistemas" }
+```
+
+**Respuesta exitosa — 200 OK:**
+```json
+{
+  "msg": "Se actualizó el profesor con legajo n° 20006",
+  "profesorModificado": {
+    "legajoProfesor": 20006,
+    "nombre": "María",
+    "apellido": "González",
+    "email": "m.gonzalez2@facultad.edu.ar",
+    "especialidad": "Redes y Sistemas"
+  }
+}
+```
+
+---
+
+#### DELETE /profesores/:legajoProfesor
+**URL de ejemplo:** `DELETE /profesores/20006`
+
+**Respuesta exitosa — 200 OK:**
+```json
+{ "msg": "Se eliminó el profesor con legajo n° 20006" }
+```
