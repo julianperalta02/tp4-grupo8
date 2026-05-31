@@ -306,7 +306,7 @@ Extiende `PersonaModel`. Agrega `legajoProfesor` y `especialidad`. Incluye `getA
 
 ### Base URL
 ```
-https://[url-render-pendiente].onrender.com
+https://tp4-grupo8-backend.onrender.com
 ```
 
 ---
@@ -421,7 +421,7 @@ El legajoProfesor se genera automáticamente.
 
 ## Deploy
 
-- **URL de la API (Render):** _pendiente_
+- **URL de la API (Render):** https://tp4-grupo8-backend.onrender.com
 - **Repositorio backend:** https://github.com/julianperalta02/tp4_grupo8_backend
 - **Repositorio front-end:** https://github.com/NCastellini/tp4-front-grupo8
 
@@ -435,7 +435,3 @@ El legajoProfesor se genera automáticamente.
 - Render
 - Postman
 - Git / GitHub
-
-
-# BORRAR
-### Lineas donde va la url de render: 309 y 424 
